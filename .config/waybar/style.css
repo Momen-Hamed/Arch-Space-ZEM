@@ -4,25 +4,27 @@
   min-height: 0;
   font-family: "Slate For One Plus";
   font-weight: 400;
-  border-radius: 11px;
+  border-radius: 20px;
   margin: 0;
   padding: 0;
   border: none;
 }
 
-window#waybar {
-  background: #1e1d1f;
-  border-radius: 15px;
+#waybar {
+  background-color: transparent;
 }
 
 window#waybar.empty #window {
   background: transparent;
   color: transparent;
 }
+
 #workspaces button {
   margin: 0 1px;
   padding: 0 2px;
   border-radius: 15px;
+  font-family: "Slate For One Plus Black";
+  font-weight: bold;
   color: #cdd6f4;
   background-color: #636067;
   transition: all 0.3s ease-in-out;
@@ -61,7 +63,7 @@ window#waybar.empty #window {
 }
 
 #custom-notifications {
-  padding: 1px 12px 0 10px;
+  padding: 1px 13px 0 11px;
   background-color: #2b292f;
   margin: 5px 0;
 }
@@ -77,7 +79,7 @@ window#waybar.empty #window {
   /* border-radius: 11px; */
   padding: 5px;
   background-color: #2b292f;
-  margin: 5px 0 5px 5px;
+  margin: 5px 0 5px 6px;
 }
 
 #window {
@@ -91,10 +93,19 @@ window#waybar.empty #window {
   margin-right: 6px;
 }
 #werki {
-  padding: 1px 10px 0;
+  padding: 2px 5px 0 12px;
   background-color: #2b292f;
-  margin: 5px 5px 5px 0;
-  font-size: 13px;
+  margin: 5px 6px 5px 0;
+  font-size: 15px;
+}
+
+/* Individual modules */
+#werki widget > #network {
+  margin: 0 10px 0 0;
+}
+
+#werki widget > #bluetooth {
+  margin: 0 10px 0 0;
 }
 
 #battery {
@@ -118,9 +129,10 @@ window#waybar.empty #window {
 }
 
 #custom-keyboard {
-  padding: 1px 7px 0;
+  padding: 1px 10px 0;
   background-color: #2b292f;
   font-size: 12px;
+  font-weight: 500;
   margin: 5px 0;
 }
 

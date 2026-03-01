@@ -7,7 +7,7 @@
 
 // Global settings
 * {
-    font:   "Slat For OnePlus Medium 12";
+    font:   "Slate For OnePlus 12";
     background-color:   transparent;
     text-color: #f2f2f2;
 }
@@ -15,22 +15,25 @@
 // // Some configurations 
 
 configuration {
-  modi:   "emoji";
+    modi:   "emoji";
+    show-icons: true;
+    scroll-method: 0;
 }
 
 // Window
 window {
-    width:                       520px;
+    width:                       400px;
     background-color:   @background;
-    border-radius:  28px;
+    border-radius:  0 20px 20px 0;
     transparency:                "real";
-    location:                    center;
-    anchor:                      center;
+    location:                    south west;
 }
 
 // Main container
 mainbox {
     padding:    15px;
+    spacing:    15px;
+    orientaion:     horizontal;
 }
 
 // Input bar
@@ -39,7 +42,7 @@ inputbar {
     background-color:   @on-secondary-fixed;
     spacing:    10px;
     padding:    0 15px 0 0;
-    border-radius:  20px;
+    border-radius:  18px;
 }
 
 // Search icon
@@ -48,7 +51,7 @@ icon-search {
     filename:   "search-symbolic";
     size:   24px;
     background-color:   @on-primary;
-    padding:    8px 10px;
+    padding:    8px 10px 8px 11px;
     border-radius:      17px;
 }
 
@@ -65,50 +68,35 @@ entry {
     vertical-align:     0.55;
 }
 
-// Textbox
-textbox {
-    background-color:       @on-secondary-fixed;
-    text-color:     @error;
-    border-radius:  20px;
-    padding:    20px;
-}
-
 // List view
 listview {
-    children:   [element, scrollbar];
-    fixed-height:   false;
+    children:   [element];
     scrollbar:  true;
-    lines:  6;
+    lines:  4;
     background-color:   @on-secondary-fixed;
-    margin: 15px 0 0 0;
-    padding:    10px;
-    border-radius:  20px;
-}
-
-// Scrollbar
-scrollbar {
-    handle-width:   4px;
-    handle-rounded-corners: true;
-    background-color:   @on-secondary;
-    handle-color:   @on-surface-variant;
-    margin: 5px 7px 5px 15px;
-    border-radius:  5px;
+    padding:    10px 0 10px 10px;
+    border-radius:  18px;
+    fixed-columns:  true;
+    columns:    7;
 }
 
 // Element base
 element {
-    spacing:    10px;
     padding: 8px 10px;
     border-radius:  17px;
 }
 
-// Element selected normal
-element selected normal {
-    background-color:   @on-secondary;
+// Element icons
+element-icon {
+    size:        1.5em;
 }
 
 // Element text
 element-text {
-    font:   "Slat For OnePlus Medium 15";
-    vertical-align: 0.5;
+    enabled: false;
+}
+
+// Element selected normal
+element selected normal {
+    background-color:   @on-secondary-fixed-variant;
 }

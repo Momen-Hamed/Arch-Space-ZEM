@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+!/usr/bin/env bash
 set -e
 
 # -----------------------------
@@ -81,7 +81,12 @@ pacman_install \
   satty \
   qt5-base qt6-base qt5-tools qt6-tools qt5-wayland qt6-wayland \
   evince \
-  haruna
+  haruna \
+  unrar \
+  rofimoji \
+  file-roller \
+  gnome-calendar \
+  gnome-weather
 
 sudo modprobe vboxdrv
 sudo modprobe vboxnetflt
@@ -185,20 +190,19 @@ fi
 # AUR packages
 # -----------------------------
 yay_install \
-  waypaper \
   pavucontrol \
   bibata-cursor-theme-bin \
   heroic-games-launcher-bin \
   elecwhat-bin \
   ttf-symbola \
-  wttrbar \
   freedownloadmanager \
   zen-browser-bin \
   visual-studio-code-bin \
   proton-ge-custom-bin \
   protonup-qt-bin
   spotify \
-  cmatrix-git
+  cmatrix-git \
+  overskride-bin
 
 cd /usr/share/icons/
 sudo rm -rf Bibata-Modern-Amber Bibata-Modern-Amber-Right Bibata-Modern-Classic-Right Bibata-Modern-Ice Bibata-Modern-Ice-Right Bibata-Original-Amber Bibata-Original-Amber Bibata-Original-Amber-Right Bibata-Original-Classic Bibata-Original-Classic-Right Bibata-Original-Ice Bibata-Original-Ice-Right

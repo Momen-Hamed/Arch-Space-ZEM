@@ -1,75 +1,67 @@
 {
   "layer": "top",
   "position": "top",
-  "margin-top": 7,
-  "margin-left": 5,
-  "margin-right": 5,
-  "height": 38,
+  "margin-top": 9,
+  "margin-left": 11,
+  "margin-right": 11,
+  "height": 28,
   "spacing": 5,
   "modules-left": [
-    "hyprland/workspaces",
-    "hyprland/window"
+    "custom/launcher",
+    "custom/media_player"
   ],
   "modules-center": [
     "clock",
+    "hyprland/workspaces",
     "custom/weather"
   ],
   "modules-right": [
     "tray",
     "custom/keyboard",
-    "custom/notifications",
-    "battery",
-    "group/werki"
+    "group/system",
+    "custom/power_options",
+    "custom/notifications"
   ],
-  "group/werki": {
+  "group/system": {
   "orientation": "horizontal",  // or "vertical"
-  "on-click": "swaync-client -t -sw",
+  // "on-click": "swaync-client -t -sw",
   "modules": [
-    "network",
+    "battery",
     "bluetooth",
-    "wireplumber"
+    "network",
+    "custom/volume"
   ]
 },
-  "custom/keyboard": {
-    "exec": "~/.config/hypr/hyprlock/scripts/kb_layout.sh",
+"custom/power_options": {
+    "format": "⏻",
+    "tooltip": false,
+    "on-click": "wlogout"
+},
+"custom/keyboard": {
+    "exec": "~/.config/waybar/scripts/kb_layout.sh",
     "interval": 1,
     "format": "{}",
-    "tooltip": false,
-    "on-click": " hyprctl switchxkblayout at-translated-set-2-keyboard next"
-  },
+    "tooltip": false
+},
 "bluetooth": {
   "format": "󰂯",
   "format-disabled": "󰂲",
   "format-off": "󰂲",
-  "format-connected": "󰂱 {num_connections}",
   "format-connected-battery": "󰂱",
   "tooltip": true,
   "tooltip-format": "Bluetooth: {status}",
-  "tooltip-format-connected": "{device_alias} ({device_battery_percentage}%)",
-  "on-click": "swaync-client -t -sw",
-  // "on-click-right": "rfkill toggle bluetooth"
+    "tooltip-format-connected": "{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias} | {device_battery_percentage}%",
+    "on-click": "overskride"
 },
-  // "wlr/taskbar": {
-  //   "format": "{icon} {title}",
-  //   "on-click": "activate",
-  //   "on-click-right": "fullscreen",
-  //   "icon-theme": "WhiteSur",
-  //   "icon-size": 25,
-  //   "tooltip-format": "{title}"
-  // },
-  // "memory": {
-  //   "interval": 5,
-  //   "format": "󰍛 {}%",
-  //   "max-length": 10
-  // },
-  "hyprland/window": {
-    "format": "{title}",
-    "max-length": 50,
-    "separate-outputs": true,
-    "icon": true,
-    "icon-size": 18,
-    "tooltip": false
-  },
+"custom/media_player": {
+    "format": "{}",
+    "return-type": "json",
+    "max-length": 40,
+    "interval": 2,
+    "exec": "~/.config/waybar/scripts/media_player.sh",
+    "on-click": "playerctl -p $(playerctl -l | head -1) play-pause"
+},
   "hyprland/workspaces": {
     "disable-scroll": true,
     "active-only": false,
@@ -81,7 +73,7 @@
       "default": ""
     },
     "persistent-workspaces": {
-      "*": 4
+      "*": 7
     }
   },
 "tray": {
@@ -89,31 +81,27 @@
   "icon-size": 15,
   "reverse-direction": false
 },
-  "clock": {
-    "format": "{:%I:%M %p  •  %a %d} ",
+"clock": {
+    "format": "{:%I:%M %p} ",
+    "on-click": "gnome-calendar",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
     "calendar": {
-      "mode": "year",
-      "mode-mon-col": 3,
-      "weeks-pos": "right",
-      "on-scroll": 1,
-      "on-click-right": "mode",
-      "format": {
-        "months": "<span color='#ffead3'><b>{}</b></span>",
-        "days": "<span color='#ecc6d9'>{}</span>",
-        "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
-        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
-        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
-      }
+      "weeks-pos": "right", 
+        "mode": "month",
+        "on-scroll": 1,
+        "format": {
+            "months": "<span color='#ffead3'><b>{}</b></span>",
+            "days": "<span color='#ecc6d9'>{}</span>",
+            "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+            "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+            "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+        }
     },
     "actions": {
-      "on-click-right": "mode",
-      "on-click-forward": "tz_up",
-      "on-click-backward": "tz_down",
-      "on-scroll-up": "shift_up",
-      "on-scroll-down": "shift_down"
+        "on-scroll-up": "shift_up",
+        "on-scroll-down": "shift_down"
     }
-  },
+},
   "network": {
     "format-wifi": "{icon}",
     "format-icons": [
@@ -150,52 +138,29 @@
   "on-click": "swaync-client -t -sw",
   "on-click-right": "swaync-client -d -sw"
 },
-"wireplumber": {
-"format": "{icon} ",
-"format-muted": "󰝟",
-"format-icons": {
-  "headphone": "󰋋",
-  "hands-free": "󰋎",
-  "headset": "󰋎",
-  "phone": "",
-  "portable": "",
-  "car": "",
-  "hifi": "󰓃",
-  "speaker": "󰓃",
-  "hdmi": "󰡁",
-  "default": ["󰕿", "󰖀", "󰖀", "󰖀", "󰕾", "󰕾", "󰕾"]
-  },
-  "tooltip": true,
-  "tooltip-format": "{volume}%",
-    "on-click": "swaync-client -t -sw"
-  // "on-click": "pavucontrol",
-  // "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-  },
-  "battery": {
-    "format": "{icon}  {capacity}%",
-    "format-icons": {
-"charging": "󱐋",  // Lightning bolt in battery
-"default": [
-  "󰂎",  // 0-10% critical
-  "󰁺",  // 10-20% low
-  "󰁻",  // 20-30%
-  "󰁼",  // 30-40%
-  "󰁽",  // 40-50%
-  "󰁾",  // 50-60%
-  "󰁿",  // 60-70%
-  "󰂀",  // 70-80%
-  "󰂁",  // 80-90%
-  "󰁹"   // 90-100% full
-]
-    },
-    // "format-full": "Charged ",
-    "interval": 5,
-    "states": {
-      "warning": 20,
-      "critical": 10
-    },
-    "tooltip": false
-  },
+"custom/volume": {
+    "exec": "~/.config/waybar/scripts/volume_icon_fix.sh",
+    "interval": 1,
+    "format": "{}",
+    "return-type": "json",
+    "on-click": "pavucontrol",
+    "on-click-middle": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+},
+"battery": {
+        "interval": 2,
+        "states": {
+            "warning": 25,
+            "critical": 15
+        },
+        "format": "{icon}",
+        "format-icons": ["", "", "", "", ""],
+        "tooltip": true,
+        "tooltip-format": "{capacity}% | {timeTo}",
+        "tooltip-format-charging": "+ {capacity}% | {timeTo}",
+        "on-click": "notify-send 'Hello'"
+      },
   // "custom/waybar-media": {
   //   "format": "{player_icon} {artist} - {title}",
   //   "max-length": 40,
@@ -203,11 +168,18 @@
   //   "on-scroll-up": "playerctl next",
   //   "on-scroll-down": "playeryctl previous"
   // }
-  "custom/weather": {
-    "format": "{} °",
+"custom/weather": {
+    "exec": "~/.config/waybar/scripts/weather.sh",
+    "interval": 1800,
+    "on-click": "gnome-weather",
+    "return-type": "json",
+    "format": "{}",
+    "tooltip": true
+},
+"custom/launcher": {
+    "format": "󰀻",
+    "on-click": "~/.config/rofi/scripts/launch_options.sh launcher",
     "tooltip": true,
-    "interval": 3600,
-    "exec": "wttrbar",
-    "return-type": "json"
-  }
+    "tooltip-format": "Launcher"
+}
 }

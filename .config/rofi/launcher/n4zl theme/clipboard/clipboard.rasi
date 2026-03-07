@@ -102,6 +102,7 @@ listview {
     spacing:    7px;
     padding:    0 5px;
     border-radius:  17px;
+    cycle:  false;
 }
 
 // Scrollbar

@@ -23,7 +23,7 @@ configuration {
 // Window
 window {
     width:                       400px;
-    background-color:   @background;
+    background-color:   @surface;
     border-radius:  0 20px 20px 0;
     transparency:                "real";
     location:                    south west;
@@ -38,7 +38,7 @@ mainbox {
 
 // Input bar
 inputbar {
-    children:   [ icon-search, entry ];
+    children:   [ "icon-search", "entry" ];
     background-color:   @on-secondary-fixed;
     spacing:    10px;
     padding:    0 15px 0 0;
@@ -70,7 +70,7 @@ entry {
 
 // List view
 listview {
-    children:   [element];
+    children:   [ "element" ];
     scrollbar:  true;
     lines:  4;
     background-color:   @on-secondary-fixed;
@@ -78,16 +78,18 @@ listview {
     border-radius:  18px;
     fixed-columns:  true;
     columns:    7;
+    flow: horizontal;
+    cycle:  false;
 }
 
 // Element base
 element {
-    padding: 8px 10px;
     border-radius:  17px;
 }
 
 // Element icons
 element-icon {
+    padding: 8px 10px;
     size:        1.5em;
 }
 
@@ -99,4 +101,5 @@ element-text {
 // Element selected normal
 element selected normal {
     background-color:   @on-secondary-fixed-variant;
+
 }

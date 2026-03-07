@@ -1,0 +1,79 @@
+// // N4ZL Theme by ziadlawatey
+// // github: ziadlawatey
+// // discord: ziadlawatey
+
+@import ".config/rofi/colors.rasi"
+
+configuration {
+    show-icons: true;
+    hover-select: true;
+    me-select-entry: "";
+    me-accept-entry: "MousePrimary";
+}
+
+window {
+    font:   "Slat For OnePlus 12";
+    width: 60%;
+    border: 0;
+    background-color: transparent;
+    border-radius: 1.2em 1.2em 0 0;
+    padding: 0;
+    location: south;
+}
+
+mainbox {
+    background-color:   @surface;
+    padding: 1em 0.94em 1em 1em;
+    spacing: 1em;
+    children: [ "listview" ];
+    border-radius:  25px 25px 0 0;
+}
+
+inputbar {
+    enabled:    false;
+}
+
+// Search icon
+
+listview {
+    columns: 7;
+    lines: 1;
+    spacing: 0.6em;
+    padding: 0;
+    flow: horizontal;
+    fixed-height: true;
+    fixed-columns: true;
+    background-color: transparent;
+    scrollbar: false;
+    cycle:  false;
+}
+
+element {
+    orientation: vertical;
+    // padding: 0.5em;
+    // spacing: 0.4em;
+    border-radius: 0.4em;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+element selected.normal {
+    // background-color: #ffffff18;
+    border:     2px;
+    border-color:   @primary;
+}
+
+element-icon {
+    size: 16em;
+    background-color: transparent;
+    cursor: inherit;
+
+}
+
+element-text {
+    enabled:    false;
+}
+
+element selected.normal element-text {
+    text-color: #ffffff;
+}

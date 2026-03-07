@@ -24,12 +24,11 @@
 window {
     enabled:                     true;    
     width:                       580px;
-    background-color:   @background;
+    background-color:   @surface;
     border-radius:  28px 28px 0 0;
     transparency:                "real";
     location:                    south;
     anchor:                      center;
-    // y-offset: -20;
 }
 
 // Main container
@@ -48,7 +47,7 @@ imagebox {
     padding:                     10px 15px;
     background-color:            transparent;
     orientation:    horizontal;
-    background-image:            url("~/.config/waypaper/current_wallpaper", width);
+    background-image:            url("~/.config/rofi/current_wallpaper", width);
     children: ["listbox", "mode-switcher"];    
 }
 
@@ -169,6 +168,7 @@ listview {
     spacing:    3px;
     padding:    10px;
     border-radius:  18px;
+    cycle:  false;
 }
 
 // Scrollbar

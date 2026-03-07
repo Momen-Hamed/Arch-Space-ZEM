@@ -2,9 +2,8 @@
 
 * {
   min-height: 0;
-  font-family: "Slate For One Plus";
-  font-weight: 400;
-  border-radius: 20px;
+  font-family: "SF Pro Display", sans-serif;
+  border-radius: 18px;
   margin: 0;
   padding: 0;
   border: none;
@@ -12,6 +11,10 @@
 
 #waybar {
   background-color: transparent;
+  /* margin: 8px 8px 8px 8px; */
+  /* background-color: rgba(18, 21, 29, 0.98);*/
+  /* background-color: rgba(20, 22, 30, 0.7); */
+  /* box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.5); */
 }
 
 window#waybar.empty #window {
@@ -23,10 +26,11 @@ window#waybar.empty #window {
   margin: 0 1px;
   padding: 0 2px;
   border-radius: 15px;
-  font-family: "Slate For One Plus Black";
-  font-weight: bold;
-  color: #cdd6f4;
-  background-color: #636067;
+  /* font-family: "Slate For One Plus"; */
+  font-weight: 700;
+  /* color: #cdd6f4; */
+  /* background-color: #636067; */
+
   transition: all 0.3s ease-in-out;
 }
 
@@ -49,95 +53,139 @@ window#waybar.empty #window {
   min-width: 35px;
 }
 
+#custom-media_player {
+  background-color: @surface_container;
+  padding: 1.5px 18px 0 16px;
+  font-weight: 600;
+}
+
 #custom-weather {
-  font-size: 0.94em;
-  padding: 1px 6px 0;
-  background-color: #2b292f;
-  margin: 5px 0;
+  font-weight: 600;
+  /* font-size: 15px; */
+  padding: 1px 13px 0;
+  background-color: @surface_container;
+
+  /* background-color: #2b292f; */
+  /* margin: 5px 0; */
+}
+
+#custom-launcher {
+  background-color: @surface_container;
+  padding: 1px 18px 0 16px;
+  font-size: 16px;
 }
 
 #tray {
-  padding: 1px 11px 0;
-  background-color: #2b292f;
-  margin: 5px 0;
+  padding: 0.3px 13px 0;
+  background-color: @surface_container;
+  /* margin: 5px 0; */
 }
 
 #custom-notifications {
-  padding: 1px 13px 0 11px;
-  background-color: #2b292f;
-  margin: 5px 0;
+  padding: 1px 17px 0 15px;
+  background-color: @surface_container;
+  font-weight: 700;
+  /* background-color: #2b292f; */
+  /* margin: 5px 0; */
+  font-size: 17px;
 }
 
 #clock {
   font-size: 0.94em;
-  padding: 1px 6px 0 8px;
-  background-color: #2b292f;
-  margin: 5px 0;
+  font-weight: 700;
+  padding: 1px 11px 0 13px;
+  /* background-color: #2b292f; */
+  /* margin: 5px 0; */
+  background-color: @surface_container;
 }
 
 #workspaces {
   /* border-radius: 11px; */
-  padding: 5px;
-  background-color: #2b292f;
-  margin: 5px 0 5px 6px;
+  padding: 5px 5px;
+  background-color: @surface_container;
+
+  /* background-color: #2b292f; */
+  /* margin: 5px 0 5px 6px; */
 }
 
 #window {
   padding: 1px 10px 0;
-  background-color: #2b292f;
-  margin: 5px 8px 5px 0;
+  /* background-color: #2b292f; */
+  /* margin: 5px 8px 5px 0; */
   font-size: 13px;
 }
 
 #custom-power {
   margin-right: 6px;
 }
-#werki {
-  padding: 2px 5px 0 12px;
-  background-color: #2b292f;
-  margin: 5px 6px 5px 0;
-  font-size: 15px;
+#system {
+  padding: 1px 16px 0 19px;
+  background-color: @surface_container;
+  font-size: 16px;
+  font-weight: 700;
 }
 
 /* Individual modules */
-#werki widget > #network {
-  margin: 0 10px 0 0;
+
+#bluetooth {
+  margin-right: 13px;
 }
 
-#werki widget > #bluetooth {
-  margin: 0 10px 0 0;
+#network {
+  margin-right: 16px;
 }
 
 #battery {
-  padding: 1px 10px 0;
-  background-color: #2b292f;
-  margin: 5px 0;
-  font-size: 13px;
+  margin-right: 18px;
+  color: @on_tertiary_container;
+  background-color: @surface_container;
+  /* background-color: #2b292f; */
+  /* color: rgb(75, 224, 93); */
+  /* margin: 5px 0; */
+  font-size: 17px;
 }
 
 #tray menu {
-  background-color: #2b292f;
+  background-color: @surface_container;
   padding: 4px 0px;
-  border-radius: 12px;
+  border-radius: 14px;
   font-size: 0.9em;
+}
+
+#tray window decoration {
+  box-shadow: none;
+}
+
+#custom-power_options {
+  background-color: @surface_container;
+  padding: 0 15px;
+  font-weight: 700;
+}
+
+#tray * {
+  border: none;
+  background-color: transparent;
 }
 
 #tray menu menuitem {
   background-color: transparent;
+  border: none;
+  border-radius: 10px;
   margin: 1px 5px;
   padding: 5px 0;
+  font-weight: 600;
 }
 
 #custom-keyboard {
-  padding: 1px 10px 0;
-  background-color: #2b292f;
-  font-size: 12px;
-  font-weight: 500;
-  margin: 5px 0;
+  padding: 0.2px 15px 0;
+  font-size: 13px;
+  font-weight: 700;
+  /* margin: 5px 0; */
+  background-color: @surface_container;
 }
 
 #tray menu menuitem:hover {
-  background-color: #545356;
+  background-color: @outline_variant;
 }
 
 #tray menu separator {
@@ -146,12 +194,11 @@ window#waybar.empty #window {
 }
 
 tooltip {
-  background: transparent;
-  border: none;
+  background-color: @surface_container;
+  border-radius: 12px;
+  font-weight: 600;
 }
 
 tooltip label {
-  background-color: #2b292f;
-  padding: 10px;
-  border-radius: 15px;
+  padding: 0 3px;
 }

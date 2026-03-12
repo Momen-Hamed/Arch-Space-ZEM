@@ -35,7 +35,7 @@
 "custom/power_options": {
     "format": "⏻",
     "tooltip": false,
-    "on-click": "wlogout"
+    "on-click": "~/.config/rofi/scripts/power_menu.sh"
 },
 "custom/keyboard": {
     "exec": "~/.config/waybar/scripts/kb_layout.sh",
@@ -60,7 +60,9 @@
     "max-length": 40,
     "interval": 2,
     "exec": "~/.config/waybar/scripts/media_player.sh",
-    "on-click": "playerctl -p $(playerctl -l | head -1) play-pause"
+    "on-click": "playerctl -p $(playerctl -l | head -1) play-pause",
+    "on-scroll-up": "~/.config/waybar/scripts/media_player.sh up",
+    "on-scroll-down": "~/.config/waybar/scripts/media_player.sh down"
 },
   "hyprland/workspaces": {
     "disable-scroll": true,
@@ -112,15 +114,11 @@
       "󰤨"
     ],
     "format-ethernet": "󰀂",
-    // "format-alt": "󱛇",
     "format-disconnected": "󰖪",
-    "tooltip-format-wifi": "{icon} {essid}\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+    "tooltip-format-wifi": "{icon}  {essid}\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
     "tooltip-format-ethernet": "󰀂  {ifname}\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
     "tooltip-format-disconnected": "Disconnected",
-    // "on-click": "~/.config/rofi/wifi/wifi.sh &",
-    // "on-cl"
-    // "on-click-right": "~/.config/rofi/wifi/wifinew.sh &",
-      "on-click": "swaync-client -t -sw",
+    "on-click": "nm-connection-editor",
     "interval": 5,
     "nospacing": 1
   },
@@ -159,7 +157,6 @@
         "tooltip": true,
         "tooltip-format": "{capacity}% | {timeTo}",
         "tooltip-format-charging": "+ {capacity}% | {timeTo}",
-        "on-click": "notify-send 'Hello'"
       },
   // "custom/waybar-media": {
   //   "format": "{player_icon} {artist} - {title}",

@@ -49,6 +49,35 @@ if [[ -z "$active_player" ]]; then
     exit
 fi
 
+# ── Volume control (called with "up" or "down" argument) ──────────────────────
+if [[ "$1" == "up" || "$1" == "down" ]]; then
+    player_name=$(echo "$active_player" | cut -d'.' -f1 | tr '[:upper:]' '[:lower:]')
+
+    # Map playerctl names to wpctl stream names
+    declare -A WPCTL_NAMES=(
+        ["firefox"]="zen"
+        ["chromium"]="chromium"
+        ["brave"]="brave"
+        ["spotify"]="spotify"
+        ["mpv"]="mpv"
+        ["vlc"]="vlc"
+    )
+    wpctl_name="${WPCTL_NAMES[$player_name]:-$player_name}"
+
+    # Find the PipeWire stream node ID
+    NODE_ID=$(wpctl status | grep -i "$wpctl_name" | grep -o '[0-9]\+\.' | tr -d '.' | tail -1)
+
+    if [[ -z "$NODE_ID" ]]; then
+        echo "Could not find PipeWire node for $wpctl_name" >&2
+        exit 1
+    fi
+
+    [[ "$1" == "up" ]]   && wpctl set-volume -l 1 "$NODE_ID" 5%+
+    [[ "$1" == "down" ]] && wpctl set-volume "$NODE_ID" 5%-
+    exit
+fi
+
+# ── Normal status output ──────────────────────────────────────────────────────
 status=$(playerctl -p "$active_player" status 2>/dev/null)
 title=$(playerctl -p "$active_player" metadata title 2>/dev/null)
 artist=$(playerctl -p "$active_player" metadata artist 2>/dev/null)

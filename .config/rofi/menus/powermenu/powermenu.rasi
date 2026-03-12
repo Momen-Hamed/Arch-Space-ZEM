@@ -1,0 +1,82 @@
+@import ".config/rofi/colors.rasi"
+
+configuration {
+    font:                           "SF Pro Display SemiBold 20";
+    show-icons: true;
+    hover-select:   false;
+    sorting-method:                 "normal";
+    sort:                           false;
+    hover-select:       true;
+}
+ 
+* {
+    background-color:   transparent;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    horizontal-alignment: 0.5;
+    vertical-alignment: 0.5;
+    spacing:    0;
+}
+ 
+ 
+window {
+    fullscreen: true;
+    background-color:               @background;
+}
+
+
+
+listview {
+    columns:                        3;
+    lines:                          2;
+    spacing:                       8px;
+    horizontal-alignment: 0.5;
+    vertical-alignment: 0.5;
+    fixed-height:   true;
+    fixed-columns:  true;
+    cycle:          false;
+    reverse:        false;
+    flow:           horizontal;
+}
+ 
+mainbox {
+    padding:        360px 700px 25px;
+    children: [listview, message];
+    horizontal-alignment: 0.5;
+    vertical-alignment: 0.5;
+}
+
+message {
+    enabled:    true;
+    horizontal-alignment: 0.5;
+    vertical-alignment: 0.5;
+    border-radius: 20px;
+}
+
+textbox {
+    background-color: @background;
+    padding: 10px;
+}
+ 
+element {
+    cursor: pointer;
+    border-radius:      43px;
+    orientation:                    vertical;
+    margin: 0;
+}
+
+element-icon {
+    padding:    40px 30px;
+    cursor: pointer;
+    background-color:               @button-background;
+    size: 2.5em;
+}
+
+element selected {
+    background-color: @background;
+}
+
+element-text {
+    enabled:    false;
+}

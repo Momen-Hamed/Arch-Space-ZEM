@@ -86,7 +86,8 @@ pacman_install \
   rofimoji \
   file-roller \
   gnome-calendar \
-  gnome-weather
+  gnome-weather \
+  vkd3d
 
 sudo modprobe vboxdrv
 sudo modprobe vboxnetflt
@@ -202,7 +203,8 @@ yay_install \
   protonup-qt-bin
   spotify \
   cmatrix-git \
-  overskride-bin
+  overskride-bin \
+  quicksnap-git
 
 cd /usr/share/icons/
 sudo rm -rf Bibata-Modern-Amber Bibata-Modern-Amber-Right Bibata-Modern-Classic-Right Bibata-Modern-Ice Bibata-Modern-Ice-Right Bibata-Original-Amber Bibata-Original-Amber Bibata-Original-Amber-Right Bibata-Original-Classic Bibata-Original-Classic-Right Bibata-Original-Ice Bibata-Original-Ice-Right

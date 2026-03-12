@@ -13,26 +13,24 @@
     spacing:    0px;
     margin:     0px;
     padding:    0px;
+    border: 0;
 }
-
-// Configuration
-// configuration {
-
-// }
 
 // Window
 window {
     enabled:                     true;    
     width:                       580px;
-    background-color:   @surface;
     border-radius:  28px 28px 0 0;
-    transparency:                "real";
     location:                    south;
     anchor:                      center;
+    border:                      0px;
+    padding:                     0px;
+
 }
 
 // Main container
 mainbox {
+    background-color:   @surface;
     spacing: 15px;
     padding:    16px;
     children:                    [ "inputbar", "listview", "imagebox"];

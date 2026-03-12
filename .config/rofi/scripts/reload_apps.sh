@@ -22,7 +22,8 @@ has_window() {
 ## Reload Apps (Parallel Execution)
 
 # Waybar
-pkill waybar; waybar &>/dev/null &
+pkill waybar
+waybar > /dev/null
 
 # Kill only
 kill_if_running waypaper
@@ -43,6 +44,9 @@ pgrep -x evince >/dev/null && { pkill -x evince; evince &>/dev/null & } &
 pgrep -x eog >/dev/null && { pkill -x eog; eog &>/dev/null & } &
 pgrep -x gnome-calendar >/dev/null && { pkill -x gnome-calendar; gnome-calendar &>/dev/null & } &
 pgrep -x gnome-weather >/dev/null && { pkill -x gnome-weather; gnome-weather &>/dev/null & } &
+pgrep -x overskride >/dev/null && { pkill -x overskride; overskride &>/dev/null & } &
+pgrep -x nm-connection-e >/dev/null && { pkill -x nm-connection-e; nm-connection-editor &>/dev/null & } &
+pgrep -x file-roller >/dev/null && { pkill -x file-roller; file-roller &>/dev/null & } &
 
 # GNOME Clocks - only restart if it has a visible window
 if has_window "org.gnome.clocks"; then
@@ -57,11 +61,13 @@ pgrep -x gnome-text-edit >/dev/null && { pkill -x gnome-text-edit; gnome-text-ed
 restart_service "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1" &
 restart_service "/usr/lib/xdg-desktop-portal-gtk" &
 
-# GParted
-pgrep -x gparted >/dev/null && { sudo pkill gparted; sudo -E gparted & }
-
 # Spotify
 pgrep -x spotify >/dev/null && { spicetify config color_scheme dark && spicetify apply & }
+
+#rsvg-convert -w 500 -h 250 /tmp/arch.svg -o ~/.config/fastfetch/arch.png
+#magick -size 500x500 -density 300 /tmp/arch.svg -background none ~/.config/fastfetch/arch.png
+
+#rsvg-convert -w 500 -h 500 /tmp/arch.svg -o ~/.config/fastfetch/arch.png
 
 wait  # Wait for all background jobs to complete
 

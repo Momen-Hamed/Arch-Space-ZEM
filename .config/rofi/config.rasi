@@ -14,7 +14,8 @@ configuration {
     display-drun:               "";
     display-run:                "";
     display-window:             "";
-  hover-select: true;
+    hover-select: true;
+        // click-to-exit:  true;
 }
 
 //  Setting the default launcher theme

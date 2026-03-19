@@ -13,29 +13,46 @@ configuration {
 
 window {
     font:   "Slat For OnePlus 12";
-    width: 60%;
+    width: 70%;
     border: 0;
     background-color: transparent;
     border-radius: 1.2em 1.2em 0 0;
-    padding: 0;
     location: south;
 }
 
 mainbox {
     background-color:   @surface;
+    border-color:   @border;
     padding: 1em 0.94em 1em 1em;
     spacing: 1em;
-    children: [ "listview" ];
+    children: [ "listview"];
     border-radius:  25px 25px 0 0;
 }
 
-inputbar {
-    enabled:    false;
-}
+// inputbar {
+//     enabled:    false;
+//     background-color:  @on-secondary;
+//     border-radius:  16px;
+//     children:       [icon-search, entry];
+// }
 
+// entry {
+//     background-color:  transparent;
+//     cursor: none;
+// }
+
+// icon-search {
+//     expand:     false;
+//     background-color:   transparent;
+//     filename:   "search-symbolic";
+//     size:   20px;
+//     padding:    8px 10px 8px 11px;
+//     border-radius:      17px;
+// }
 // Search icon
 
 listview {
+    expand: false;
     columns: 7;
     lines: 1;
     spacing: 0.6em;
@@ -50,8 +67,6 @@ listview {
 
 element {
     orientation: vertical;
-    // padding: 0.5em;
-    // spacing: 0.4em;
     border-radius: 0.4em;
     background-color: transparent;
     cursor: pointer;
@@ -64,7 +79,7 @@ element selected.normal {
 }
 
 element-icon {
-    size: 16em;
+    size: 12em;
     background-color: transparent;
     cursor: inherit;
 

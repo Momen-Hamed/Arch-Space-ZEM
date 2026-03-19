@@ -19,13 +19,10 @@ configuration {
     spacing:    0;
 }
  
- 
 window {
     fullscreen: true;
     background-color:               @background;
 }
-
-
 
 listview {
     columns:                        3;
@@ -41,24 +38,24 @@ listview {
 }
  
 mainbox {
-    padding:        360px 700px 25px;
-    children: [listview, message];
+    padding:        380px 700px 25px;
+    children: [listview, textbox-prompt-colon];
     horizontal-alignment: 0.5;
     vertical-alignment: 0.5;
 }
 
-message {
-    enabled:    true;
+
+textbox-prompt-colon {
+    expand: false;
+    font:                           "SF Pro Display SemiBold 18";
     horizontal-alignment: 0.5;
     vertical-alignment: 0.5;
     border-radius: 20px;
+    padding:    12px;
+    color:          @primary;
+    background-color:   @button-background;
 }
 
-textbox {
-    background-color: @background;
-    padding: 10px;
-}
- 
 element {
     cursor: pointer;
     border-radius:      43px;
@@ -74,7 +71,7 @@ element-icon {
 }
 
 element selected {
-    background-color: @background;
+    background-color: @button-selected-background;
 }
 
 element-text {

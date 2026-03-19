@@ -1,26 +1,28 @@
 #!/usr/bin/env bash
-# Root Apps Reload Script
+# Root GUI Apps Reload Script
 
-# Export display env vars so root apps can connect to the session
-export DISPLAY="${DISPLAY:-:0}"
-export XAUTHORITY="${XAUTHORITY:-$HOME/.Xauthority}"
-export WAYLAND_DISPLAY="${WAYLAND_DISPLAY:-wayland-0}"
-export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+# Relaunch with sudo if not root
+if [[ $EUID -ne 0 ]]; then
+    sudo -E "$0" "$@"
+    exit
+fi
+
+echo "🔐 Reloading running root GUI apps..."
 
 restart_root_app() {
     local process="$1"
-    local binary="${2:-$1}"
 
-    if pgrep -x "$process" >/dev/null 2>&1; then
-        sudo pkill -x "$process"
-        sleep 0.5
-        sudo -E "$binary" &>/dev/null &
+    if pgrep -f "$process" >/dev/null; then
+        echo "↻ Restarting $process"
+        pkill -f "$process"
+        sleep 1
+        sudo -E "$process" &>/dev/null &
     else
-        echo "Process '$process' not found, skipping."
+        echo "• $process is not running, skipping"
     fi
 }
 
-restart_root_app gpartedbin gparted
-restart_root_app timeshift-gtk timeshift-gtk
+restart_root_app gparted
+restart_root_app timeshift-gtk
 
-wait
+echo "✅ Done"

@@ -12,14 +12,14 @@ Logout\x00icon\x1f${HOME}/.config/rofi/icons/logout.png
 Lock\x00icon\x1f${HOME}/.config/rofi/icons/lock.png" | rofi -dmenu \
     -i \
     -no-sort \
-    -mesg "Uptime: $(uptime -p | sed 's/up //')" \
+    -theme-str "textbox-prompt-colon { str:  \" 󰄉   Uptime: $(uptime -p | sed 's/up //')\";}" \
     -p "Power" \
     -theme "~/.config/rofi/menus/powermenu/powermenu.rasi")
 
 sed -i 's/layerrule = match:namespace rofi, blur on, animation slide right/layerrule = match:namespace rofi, animation slide bottom/g' "$RULES"
 
 if [ "$selected_option" == "Lock" ]; then
-    playerctl pause; hyprlock
+    playerctl -a pause; hyprlock
 elif [ "$selected_option" == "Logout" ]; then
     hyprctl dispatch exit
 elif [ "$selected_option" == "Shutdown" ]; then

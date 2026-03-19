@@ -3,11 +3,15 @@
 // discord: ziadlawatey
 
 @import ".config/rofi/colors.rasi"
-
+configuration {
+    hover-select:   true;
+    me-select-entry: "";
+    me-accept-entry: "MousePrimary";
+}
 
 // Global settings
 * {
-    font:   "Slat For OnePlus Medium 12";
+    font:   "SF Pro Display Medium 13";
     background-color:   transparent;
     text-color: #f2f2f2;
     spacing:    0px;
@@ -25,12 +29,13 @@ window {
     anchor:                      center;
     border:                      0px;
     padding:                     0px;
+    background-color:   @surface;
+
 
 }
 
 // Main container
 mainbox {
-    background-color:   @surface;
     spacing: 15px;
     padding:    16px;
     children:                    [ "inputbar", "listview", "imagebox"];
@@ -41,7 +46,7 @@ imagebox {
         // min-height:         px;
           // Add this line to control the width
     expand: false;  // Add this line
-    border-radius:  18px;
+    border-radius:  17px;
     padding:                     10px 15px;
     background-color:            transparent;
     orientation:    horizontal;
@@ -56,8 +61,8 @@ mode-switcher {
 }
 
 button {
-    background-color:   @on-primary;
-    padding: 1px 17px 0 10.5px;
+    background-color: @on-secondary-fixed;
+    padding: 2px 20px 0 13.5px;
     border-radius:               12px;
     font:   "Slat For OnePlus 16";
     cursor:                      pointer;
@@ -71,10 +76,10 @@ button selected {
 
 inputbar {
     children:   [ icon-search, entry, icon-paste ];
-    background-color:   @on-secondary-fixed;
+    background-color: @surface-container;
     spacing:    10px;
     padding:    0 15px 0 0;
-    border-radius:  18px;
+    border-radius:  17px;
 }
 
 
@@ -100,9 +105,8 @@ icon-search {
     expand:     false;
     filename:   "search-symbolic";
     size:   24px;
-    background-color:   @on-primary;
-    padding:    8px 10px 8px 11px;
-    // border-radius:      17px 0 0 17px;
+    background-color: @primary-container;
+    padding:    8px 15px;
     border-radius:      17px;
 }
 
@@ -125,14 +129,10 @@ icon-paste {
 entry {
     cursor:         text;
     placeholder:    "Search";
-    placeholder-color:  #c4c4c4;
+    placeholder-color:  @outline;
     vertical-align:     0.55;
 }
 
-element normal first-child {
-    background-color:   @error;
-    border-radius:      17px;
-}
 
 element normal first-child element-text {
     color:  @background;
@@ -149,7 +149,7 @@ message {
 // Textbox
 textbox {
     enabled:    true;
-    background-color:       @on-secondary-fixed;
+    background-color: @surface-container;
     text-color:     @error;
     border:     30px;
     border-radius:  20px;
@@ -162,10 +162,10 @@ listview {
     scrollbar:  true;
     lines:  7;
     columns:    1;
-    background-color:   @on-secondary-fixed;
+background-color: @surface-container;
     spacing:    3px;
     padding:    10px;
-    border-radius:  18px;
+    border-radius:  15px;
     cycle:  false;
 }
 

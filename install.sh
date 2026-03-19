@@ -47,7 +47,7 @@ pacman_install \
   zsh zsh-autosuggestions zsh-syntax-highlighting \
   nautilus gparted \
   rofi waybar slurp grim cliphist hyprlock hypridle \
-  qalculate-gtk btop cava neovim \
+  qalculate-gtk btop cava cowsay neovim \
   gnome-clocks gnome-text-editor \
   inter-font noto-fonts-emoji nerd-fonts noto-fonts-cjk \
   adw-gtk-theme ntfs-3g \
@@ -81,13 +81,15 @@ pacman_install \
   satty \
   qt5-base qt6-base qt5-tools qt6-tools qt5-wayland qt6-wayland \
   evince \
-  haruna \
+  totem \
   unrar \
   rofimoji \
   file-roller \
   gnome-calendar \
   gnome-weather \
-  vkd3d
+  vkd3d \
+  sound-theme-freedesktop libcanberra libcanberra-pulse socat \
+  gnome-system-monitor
 
 sudo modprobe vboxdrv
 sudo modprobe vboxnetflt
@@ -204,7 +206,11 @@ yay_install \
   spotify \
   cmatrix-git \
   overskride-bin \
-  quicksnap-git
+  quicksnap-git \
+  nmgui-bin \
+  network-manager-applet \
+  ocean-sound-theme \
+  adwsteamgtk
 
 cd /usr/share/icons/
 sudo rm -rf Bibata-Modern-Amber Bibata-Modern-Amber-Right Bibata-Modern-Classic-Right Bibata-Modern-Ice Bibata-Modern-Ice-Right Bibata-Original-Amber Bibata-Original-Amber Bibata-Original-Amber-Right Bibata-Original-Classic Bibata-Original-Classic-Right Bibata-Original-Ice Bibata-Original-Ice-Right
@@ -280,6 +286,8 @@ cd /mnt
 
 sudo mkdir overall_storage others windows
 
+cd ~
+mkdir Videos Documents Pictures Downloads Desktop
 echo
 echo "✅ Setup complete."
 

@@ -5,7 +5,7 @@ case "$1" in
         swaync-client --close-panel && rofi -show drun -show-icons -theme-str "textbox-prompt-colon { str: \"$(date '+%I:%M %p')\";} textbox-quote { str: '$(~/.config/rofi/scripts/quotes.sh)';}"
         ;;
     emoji)
-        swaync-client --close-panel && rofimoji --selector rofi --action copy --clipboarder wl-copy --max-recent 0 --use-icons --selector-args "-theme $HOME/.config/rofi/launcher/n4zl\ theme/emoji/emoji.rasi"
+        swaync-client --close-panel && rofimoji --selector rofi --action copy --clipboarder wl-copy --skin-tone neutral --max-recent 0 --no-frecency --use-icons --selector-args "-theme $HOME/.config/rofi/launcher/n4zl\ theme/emoji/emoji.rasi" && wtype -M ctrl -k v -m ctrl
         ;;
     clipboard)
         tmp_dir="/tmp/cliphist"

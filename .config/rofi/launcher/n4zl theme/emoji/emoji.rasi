@@ -22,11 +22,11 @@ configuration {
 
 // Window
 window {
-    width:                       400px;
+    width:                      500px;
     background-color:   @surface;
-    border-radius:  0 20px 20px 0;
+    border-radius:  28px 28px 0 0;
     transparency:                "real";
-    location:                    south west;
+    location:                    south;
 }
 
 // Main container
@@ -38,11 +38,11 @@ mainbox {
 
 // Input bar
 inputbar {
-    children:   [ "icon-search", "entry" ];
-    background-color:   @on-secondary-fixed;
+    children:   [ icon-search, entry ];
+    background-color: @surface-container;
     spacing:    10px;
     padding:    0 15px 0 0;
-    border-radius:  18px;
+    border-radius:  17px;
 }
 
 // Search icon
@@ -50,8 +50,8 @@ icon-search {
     expand:     false;
     filename:   "search-symbolic";
     size:   24px;
-    background-color:   @on-primary;
-    padding:    8px 10px 8px 11px;
+    background-color: @primary-container;
+    padding:    8px 15px;
     border-radius:      17px;
 }
 
@@ -65,7 +65,7 @@ entry {
     cursor:         text;
     placeholder:    "Search";
     placeholder-color:  #c4c4c4;
-    vertical-align:     0.55;
+    vertical-align:     0.5;
 }
 
 // List view
@@ -73,33 +73,38 @@ listview {
     children:   [ "element" ];
     scrollbar:  true;
     lines:  4;
-    background-color:   @on-secondary-fixed;
+background-color: @surface-container;
     padding:    10px 0 10px 10px;
-    border-radius:  18px;
+    border-radius:  15px;
     fixed-columns:  true;
-    columns:    7;
+    columns:   9;
     flow: horizontal;
     cycle:  false;
+    horizontal-alignment: 0.5;
+    vertical-alignment: 0.5;
 }
 
 // Element base
 element {
     border-radius:  17px;
+    horizontal-alignment: 0.5;
+    vertical-alignment: 0.5;
 }
 
 // Element icons
 element-icon {
-    padding: 8px 10px;
-    size:        1.5em;
+    padding: 8px 8px 8px 9px;
+    size:        1.6em;
+        horizontal-alignment: 0.5;
+    vertical-alignment: 0.5;
 }
 
 // Element text
 element-text {
-    enabled: false;
+    enabled: true;
 }
 
 // Element selected normal
 element selected normal {
-    background-color:   @on-secondary-fixed-variant;
-
+    background-color:   @surface-bright;
 }

@@ -12,15 +12,17 @@ configuration {
 
 // Global settings
 * {
-    font:   "Slat For OnePlus Medium 12";
+    font:   "SF Pro Display SemiBold 12";
     background-color:   transparent;
     text-color: #f2f2f2;
+    padding:  0;
+    margin: 0;
 }
 
 // Window
 window {
     width:                       520px;
-    background-color:   @background;
+    background-color:   @surface;
     border-radius:  28px 28px 0 0;
     transparency:                "real";
     location:                    south;
@@ -38,16 +40,17 @@ listbox {
     children: [inputbar, icon-wipe];
     expand:     false;
     orientation:    horizontal;
+    spacing:    10px;
 }
 
 // Input bar
 inputbar {
+    expand: true;
     children:   [ icon-search, entry ];
-    background-color:   @on-secondary-fixed;
+    background-color: @surface-container;
     spacing:    10px;
     padding:    0 15px 0 0;
-    border-radius:  18px;
-    expand: true;
+    border-radius:  17px;
 }
 
 // Search icon
@@ -55,18 +58,18 @@ icon-search {
     expand:     false;
     filename:   "search-symbolic";
     size:   24px;
-    background-color:   @on-primary;
-    padding:    8px 10px;
+    background-color: @primary-container;
+    padding:    8px 15px;
     border-radius:      17px;
 }
+
 
 icon-wipe {
     expand:     false;
     filename:   "edit-clear-all-symbolic";
     size:   24px;
-    background-color:   @on-primary;
-    padding:    8px 10px;
-    margin:     0 0 0 10px;
+    background-color: @primary-container;
+    padding:    8px 15px;
     border-radius:      17px;
     action:         "kb-custom-1";
 }
@@ -80,8 +83,9 @@ icon-wipe, elemnent, element-icon, element-text {
 entry {
     cursor:         text;
     placeholder:    "Search";
-    placeholder-color:  #c4c4c4;
-    vertical-align:     0.55;
+    placeholder-color:  @outline;
+    vertical-align:     0.5;
+    color:  #ececec;
 }
 
 // Textbox
@@ -101,7 +105,6 @@ listview {
     columns:    1;
     spacing:    7px;
     padding:    0 5px;
-    border-radius:  17px;
     cycle:  false;
 }
 
@@ -117,15 +120,15 @@ scrollbar {
 
 // Element base
 element {
-    background-color:   @on-secondary-fixed;
+background-color: @surface-container;
     padding: 0 10px;
-    border-radius:  15px;
+    border-radius:  18px;
     spacing:    10px;
 }
 
 // Element selected normal
 element selected normal {
-    background-color:   @on-secondary;
+    background-color:   @surface-bright;
 }
 
 // Element icon
@@ -135,6 +138,6 @@ element-icon {
 
 // Element text
 element-text {
-    font:   "Roboto Bold 12";
+    font:   "SF Pro Display SemiBold 12";
     vertical-align:   0.5;
 }

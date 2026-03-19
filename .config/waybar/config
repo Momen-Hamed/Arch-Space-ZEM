@@ -34,8 +34,11 @@
 },
 "custom/power_options": {
     "format": "⏻",
-    "tooltip": false,
-    "on-click": "~/.config/rofi/scripts/power_menu.sh"
+    "exec": "~/.config/waybar/scripts/power_info.sh",
+    "on-click": "~/.config/rofi/scripts/power_menu.sh",
+    "return-type": "json",
+    "tooltip": true,
+    "interval": 60
 },
 "custom/keyboard": {
     "exec": "~/.config/waybar/scripts/kb_layout.sh",
@@ -60,7 +63,9 @@
     "max-length": 40,
     "interval": 2,
     "exec": "~/.config/waybar/scripts/media_player.sh",
-    "on-click": "playerctl -p $(playerctl -l | head -1) play-pause",
+    "on-click": "playerctl -p $(cat /tmp/waybar_media_player) play-pause",
+    "on-click-right": "~/.config/waybar/scripts/media_player.sh switch",
+    "on-click-middle": "~/.config/waybar/scripts/media_player.sh mute",
     "on-scroll-up": "~/.config/waybar/scripts/media_player.sh up",
     "on-scroll-down": "~/.config/waybar/scripts/media_player.sh down"
 },
@@ -75,13 +80,13 @@
       "default": ""
     },
     "persistent-workspaces": {
-      "*": 7
+      "*": 5
     }
   },
 "tray": {
   "spacing": 9,
   "icon-size": 15,
-  "reverse-direction": false
+  "reverse-direction": false,
 },
 "clock": {
     "format": "{:%I:%M %p} ",
@@ -118,7 +123,7 @@
     "tooltip-format-wifi": "{icon}  {essid}\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
     "tooltip-format-ethernet": "󰀂  {ifname}\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
     "tooltip-format-disconnected": "Disconnected",
-    "on-click": "nm-connection-editor",
+    "on-click": "nmgui",
     "interval": 5,
     "nospacing": 1
   },

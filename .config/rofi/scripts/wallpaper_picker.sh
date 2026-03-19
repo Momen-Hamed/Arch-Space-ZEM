@@ -102,7 +102,7 @@ fi
 # Generate theme with Matugen
 # ----------------------------------------------------------------------------
 
-if ! matugen image "$WALLPAPER"; then
+if ! matugen image "$WALLPAPER" --type scheme-tonal-spot --source-color-index 0; then
     notify-send "Matugen Error" "Failed to generate theme!"
     exit 1
 fi
@@ -112,7 +112,7 @@ fi
 # ----------------------------------------------------------------------------
 
 ~/.config/rofi/scripts/reload_apps.sh
-#sudo ~/.config/rofi/scripts/reload_root_apps.sh
+sudo ~/.config/rofi/scripts/reload_root_apps.sh
 # ----------------------------------------------------------------------------
 # Notification
 # ----------------------------------------------------------------------------

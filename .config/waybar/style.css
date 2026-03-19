@@ -11,10 +11,6 @@
 
 #waybar {
   background-color: transparent;
-  /* margin: 8px 8px 8px 8px; */
-  /* background-color: rgba(18, 21, 29, 0.98);*/
-  /* background-color: rgba(20, 22, 30, 0.7); */
-  /* box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.5); */
 }
 
 window#waybar.empty #window {
@@ -23,14 +19,11 @@ window#waybar.empty #window {
 }
 
 #workspaces button {
-  margin: 0 1px;
-  padding: 0 2px;
+  margin: 0 2px;
+  padding: 0 5px;
   border-radius: 15px;
-  /* font-family: "Slate For One Plus"; */
   font-weight: 700;
-  /* color: #cdd6f4; */
-  /* background-color: #636067; */
-
+  /* min-width: 5px; */
   transition: all 0.3s ease-in-out;
 }
 
@@ -41,6 +34,11 @@ window#waybar.empty #window {
   transition: all 0.3s ease-in-out;
 }
 
+#workspaces button:not(.empty) {
+  background-color: @primary;
+  color: #2f354a;
+}
+
 #workspaces button.urgent {
   background-color: #cdd6f4;
   color: #2f354a;
@@ -48,7 +46,7 @@ window#waybar.empty #window {
 }
 
 #workspaces button:hover {
-  background-color: @primary;
+  background-color: @on_error_container;
   color: #2f354a;
   min-width: 35px;
 }
@@ -56,11 +54,11 @@ window#waybar.empty #window {
 #custom-media_player {
   background-color: @surface_container;
   padding: 1.5px 18px 0 16px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 #custom-weather {
-  font-weight: 600;
+  font-weight: 700;
   /* font-size: 15px; */
   padding: 1px 13px 0;
   background-color: @surface_container;

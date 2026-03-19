@@ -47,6 +47,8 @@ pgrep -x gnome-weather >/dev/null && { pkill -x gnome-weather; gnome-weather &>/
 pgrep -x overskride >/dev/null && { pkill -x overskride; overskride &>/dev/null & } &
 pgrep -x nm-connection-e >/dev/null && { pkill -x nm-connection-e; nm-connection-editor &>/dev/null & } &
 pgrep -x file-roller >/dev/null && { pkill -x file-roller; file-roller &>/dev/null & } &
+pgrep -f nmgui >/dev/null && { pkill -f nmgui; nmgui &>/dev/null & }
+pgrep -x gnome-system-mo >/dev/null && { pkill -x gnome-system-mo; gnome-system-monitor &>/dev/null & } &
 
 # GNOME Clocks - only restart if it has a visible window
 if has_window "org.gnome.clocks"; then

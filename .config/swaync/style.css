@@ -8,6 +8,117 @@
   --padding: calc(var(--border-radius) / 2);
 }
 
+/* ─── Notification Popup ─────────────────────────────── */
+.notification-row {
+  padding: 2px 0;
+}
+
+.notification {
+  border-radius: 15px;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.notification-content {
+  background: var(--widget-background);
+  border-radius: var(--border-radius);
+  padding: 12px 14px;
+  border: 0.5px solid rgba(255, 255, 255, 0.08);
+}
+
+.notification-default-action {
+  border-radius: var(--border-radius);
+  padding: 0;
+  margin: 0;
+}
+
+.notification-default-action:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* App icon */
+/* Fallback bell icon when no app image */
+.notification-icon {
+  border-radius: 10px;
+  margin-right: 4px;
+}
+
+.notification-icon:not(:empty) {
+  /* app provided an icon — show it normally */
+}
+
+.notification-icon:empty {
+  background: rgba(255, 255, 255, 0.08);
+  background-image: url("icon:notification-symbolic");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 24px 24px;
+  min-width: 48px;
+  min-height: 48px;
+  border-radius: 10px;
+}
+
+/* App name + timestamp row */
+.notification-top-row {
+  font-size: 11px;
+  opacity: 0.5;
+  margin-bottom: 4px;
+}
+
+/* Title */
+.notification-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #e8e8e8;
+}
+
+/* Body text */
+.notification-body {
+  font-size: 12px;
+  color: rgba(232, 232, 232, 0.7);
+  margin-top: 2px;
+}
+
+/* Action buttons (e.g. Reply / Dismiss) */
+.notification-action-button {
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: calc(var(--border-radius) - 6px);
+  border: 0.5px solid rgba(255, 255, 255, 0.1);
+  color: #e0e0e0;
+  font-size: 12px;
+  padding: 4px 10px;
+  margin-top: 6px;
+}
+
+.notification-action-button:hover {
+  background: rgba(255, 255, 255, 0.13);
+}
+
+/* Close button */
+.close-button {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.5);
+  min-width: 22px;
+  min-height: 22px;
+  font-size: 12px;
+}
+
+.close-button:hover {
+  background: rgba(255, 60, 60, 0.3);
+  color: #fff;
+}
+
+/* Urgency tinting */
+.notification.critical > .notification-content {
+  border-left: 3px solid rgba(220, 60, 60, 0.8);
+}
+
+.notification.low > .notification-content {
+  opacity: 0.75;
+}
+
 .control-center {
   border-radius: 0;
 }

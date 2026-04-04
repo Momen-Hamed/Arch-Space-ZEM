@@ -53,7 +53,7 @@ pacman_install \
   gnome-clocks gnome-text-editor \
   inter-font noto-fonts-emoji nerd-fonts noto-fonts-cjk \
   adw-gtk-theme ntfs-3g \
-   wine-mono wine-gecko winetricks zenity \
+  wine-mono wine-gecko winetricks zenity \
   ffmpeg gamescope telegram-desktop \
   gst-plugins-{base,good,bad,ugly} \
   samba gnutls sdl2-compat \
@@ -94,7 +94,9 @@ pacman_install \
   gnome-system-monitor \
   timeshift \
   wtype \
-  bc
+  bc \
+  hyprpicker \
+  qt6-5compat qt5-graphicaleffects
 
 sudo modprobe vboxdrv
 sudo modprobe vboxnetflt
@@ -211,7 +213,6 @@ yay_install \
   spotify \
   cmatrix-git \
   overskride-bin \
-  quicksnap-git \
   nmgui-bin \
   network-manager-applet \
   ocean-sound-theme \

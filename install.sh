@@ -78,6 +78,7 @@ pacman_install \
   rofi-emoji \
   pacman-contrib \
   rsync \
+  vulkan-headers \
   power-profiles-daemon \
   gobject-introspection python-gobject \
   satty \
@@ -217,7 +218,6 @@ yay_install \
   network-manager-applet \
   ocean-sound-theme \
   adwsteamgtk \
-  grimblast-git \
   dxvk-bin
 
 cd /usr/share/icons/

@@ -1,4 +1,4 @@
-#/usr/bin/env bash
+#!/usr/bin/env bash
 
 # mesa lib32-mesa -media-driver vulkan-intel lib32-vulkan-intel
 set -e
@@ -14,6 +14,8 @@ yay_install() {
   yay -S --needed --noconfirm "$@"
 }
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # -----------------------------
 # Enable multilib
 # -----------------------------
@@ -28,6 +30,13 @@ fi
 # -----------------------------
 echo "==> Updating system..."
 sudo pacman -Syu --noconfirm
+
+# -----------------------------
+# Diagnose
+# -----------------------------
+if [ -f "$SCRIPT_DIR/diagnose.sh" ]; then
+  bash "$SCRIPT_DIR/diagnose.sh"
+fi
 
 # -----------------------------
 # Base packages
@@ -49,7 +58,7 @@ pacman_install \
   zsh zsh-autosuggestions zsh-syntax-highlighting \
   nautilus gparted \
   rofi waybar slurp grim cliphist hyprlock hypridle \
-  qalculate-gtk btop cava cowsay neovim \
+  qalculate-gtk btop cava cowsay \
   gnome-clocks gnome-text-editor \
   inter-font noto-fonts-emoji nerd-fonts noto-fonts-cjk \
   adw-gtk-theme ntfs-3g \
@@ -57,10 +66,9 @@ pacman_install \
   ffmpeg gamescope telegram-desktop \
   gst-plugins-{base,good,bad,ugly} \
   samba gnutls sdl2-compat \
-  virtualbox virtualbox-host-modules-arch \
   swaync \
   font-manager \
-  mangohud lib32-mangohud gamemode lib32-gamemode goverlay  vulkan-icd-loader lib32-vulkan-icd-loader vulkan-tools steam \
+  mangohud lib32-mangohud gamemode lib32-gamemode goverlay vulkan-icd-loader lib32-vulkan-icd-loader vulkan-tools steam \
   discord \
   blueman \
   scrcpy wayvnc \
@@ -99,9 +107,16 @@ pacman_install \
   hyprpicker \
   qt6-5compat qt5-graphicaleffects
 
-sudo modprobe vboxdrv
-sudo modprobe vboxnetflt
-sudo modprobe vboxnetadp
+# -----------------------------
+# VirtualBox
+# -----------------------------
+read -rp "Install VirtualBox? [y/N]: " VBOX_CONFIRM
+if [[ "$VBOX_CONFIRM" =~ ^[Yy]$ ]]; then
+  sudo pacman -S --needed --noconfirm virtualbox virtualbox-host-modules-arch
+  sudo modprobe vboxdrv
+  sudo modprobe vboxnetflt
+  sudo modprobe vboxnetadp
+fi
 
 # -----------------------------
 # Remove bad portal
@@ -125,56 +140,54 @@ sudo systemctl enable --now power-profiles-daemon
 # Configure greetd
 # -----------------------------
 GREETD_CONFIG="/etc/greetd/config.toml"
+USERNAME=$(whoami)
 
 echo "==> Configuring greetd..."
 
-sudo mkdir -p /etc/greetd
-sudo touch "$GREETD_CONFIG"
-
 sudo grep -q '^\[default_session\]' "$GREETD_CONFIG" || \
   sudo tee -a "$GREETD_CONFIG" >/dev/null <<EOF
-
 [default_session]
 command = "start-hyprland"
-user = "ziadlawatey"
+user = "$USERNAME"
 EOF
 
-sudo sed -i '
+sudo sed -i "
 /^\[default_session\]/,/^\[/ {
-  s/^command *=.*/command = "start-hyprland"/
-  s/^user *=.*/user = "ziadlawatey"/
+  s/^command *=.*/command = \"start-hyprland\"/
+  s/^user *=.*/user = \"$USERNAME\"/
 }
-' "$GREETD_CONFIG"
+" "$GREETD_CONFIG"
 
 sudo grep -q '^command *= *"start-hyprland"' "$GREETD_CONFIG" || \
   sudo sed -i '/^\[default_session\]/a command = "start-hyprland"' "$GREETD_CONFIG"
 
-sudo grep -q '^user *= *"ziadlawatey"' "$GREETD_CONFIG" || \
-  sudo sed -i '/^\[default_session\]/a user = "ziadlawatey"' "$GREETD_CONFIG"
-
+sudo grep -q "^user *= *\"$USERNAME\"" "$GREETD_CONFIG" || \
+  sudo sed -i "/^\[default_session\]/a user = \"$USERNAME\"" "$GREETD_CONFIG"
 
 # -----------------------------
-# NvChad setup
+# Editor setup
 # -----------------------------
-NVIM_DIR="$HOME/.config/nvim"
-NVCHAD_MARKER="$NVIM_DIR/lua/core/init.lua"
+echo "Select editor to install:"
+echo "1) NvChad (neovim)"
+echo "2) nano"
+echo "3) Skip"
+read -rp "Choice [1/2/3]: " EDITOR_CHOICE
 
-if [ ! -f "$NVCHAD_MARKER" ]; then
-  echo "==> Installing NvChad..."
-  git clone https://github.com/NvChad/starter "$NVIM_DIR" || true
-else
-  echo "==> NvChad already installed, skipping clone"
-fi
-
-# always run these
-cp -f nvim_plugins/* "$NVIM_DIR/lua/plugins/"
-nvim
-
-INIT_LUA="$NVIM_DIR/init.lua"
-
-if ! grep -q "Load matugen colors" "$INIT_LUA" 2>/dev/null; then
-  cat >> "$INIT_LUA" <<'EOF'
-
+if [[ "$EDITOR_CHOICE" == "1" ]]; then
+  sudo pacman -S --needed --noconfirm neovim
+  NVIM_DIR="$HOME/.config/nvim"
+  NVCHAD_MARKER="$NVIM_DIR/lua/core/init.lua"
+  if [ ! -f "$NVCHAD_MARKER" ]; then
+    echo "==> Installing NvChad..."
+    git clone https://github.com/NvChad/starter "$NVIM_DIR" || true
+  else
+    echo "==> NvChad already installed, skipping clone"
+  fi
+  cp -f nvim_plugins/* "$NVIM_DIR/lua/plugins/"
+  nvim
+  INIT_LUA="$NVIM_DIR/init.lua"
+  if ! grep -q "Load matugen colors" "$INIT_LUA" 2>/dev/null; then
+    cat >> "$INIT_LUA" <<'EOF'
 -- Load matugen colors after startup
 vim.schedule(function()
   require "mappings"
@@ -184,17 +197,14 @@ vim.schedule(function()
   end
 end)
 EOF
-fi
-
-COLORS_LUA="$NVIM_DIR/colors.lua"
-[ -f "$COLORS_LUA" ] || touch "$COLORS_LUA"
-
-# -----------------------------
-# Install yay
-# -----------------------------
-if ! command -v yay &>/dev/null; then
-  git clone https://aur.archlinux.org/yay.git /tmp/yay
-  (cd /tmp/yay && makepkg -si --noconfirm)
+  fi
+  COLORS_LUA="$NVIM_DIR/colors.lua"
+  [ -f "$COLORS_LUA" ] || touch "$COLORS_LUA"
+elif [[ "$EDITOR_CHOICE" == "2" ]]; then
+  echo "==> Installing nano..."
+  sudo pacman -S --needed --noconfirm nano
+else
+  echo "==> Skipping editor install."
 fi
 
 # -----------------------------
@@ -207,7 +217,6 @@ yay_install \
   elecwhat-bin \
   ttf-symbola \
   freedownloadmanager \
-  zen-browser-bin \
   visual-studio-code-bin \
   proton-ge-custom-bin \
   protonup-qt-bin \
@@ -218,7 +227,29 @@ yay_install \
   network-manager-applet \
   ocean-sound-theme \
   adwsteamgtk \
-  dxvk-bin
+  dxvk-bin \
+  darkly-qt6-git \
+  darkly-qt5-git \
+  swayosd-git
+
+# -----------------------------
+# Browser
+# -----------------------------
+echo "Select browser to install:"
+echo "1) Brave"
+echo "2) Zen Browser"
+echo "3) Firefox"
+echo "4) Google Chrome"
+echo "5) Skip"
+read -rp "Choice [1/2/3/4/5]: " BROWSER_CHOICE
+
+case "$BROWSER_CHOICE" in
+  1) yay -S --needed --noconfirm brave-bin ;;
+  2) yay -S --needed --noconfirm zen-browser-bin ;;
+  3) sudo pacman -S --needed --noconfirm firefox ;;
+  4) yay -S --needed --noconfirm google-chrome ;;
+  *) echo "==> Skipping browser install." ;;
+esac
 
 cd /usr/share/icons/
 sudo rm -rf Bibata-Modern-Amber Bibata-Modern-Amber-Right Bibata-Modern-Classic-Right Bibata-Modern-Ice Bibata-Modern-Ice-Right Bibata-Original-Amber Bibata-Original-Amber Bibata-Original-Amber-Right Bibata-Original-Classic Bibata-Original-Classic-Right Bibata-Original-Ice Bibata-Original-Ice-Right
@@ -227,7 +258,10 @@ cd ~/
 # -----------------------------
 # Flatpak
 # -----------------------------
-flatpak install flathub org.vinegarhq.Sober || true
+read -rp "Install Roblox (Sober)? [y/N]: " ROBLOX_CONFIRM
+if [[ "$ROBLOX_CONFIRM" =~ ^[Yy]$ ]]; then
+  flatpak install flathub org.vinegarhq.Sober || true
+fi
 
 # -----------------------------
 # Nautilus default
@@ -238,28 +272,40 @@ xdg-mime default org.gnome.Nautilus.desktop inode/directory
 # -----------------------------
 # Deploy dotfiles (force overwrite)
 # -----------------------------
-
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
 curl -sS https://starship.rs/install.sh | sh
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+if [ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]; then
+  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+fi
 
 echo "==> Copying dotfiles to home (overwrite enabled)..."
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
 # Copy .config (merge, overwrite same files)
 if [ -d "$SCRIPT_DIR/.config" ]; then
-  rsync -a "$SCRIPT_DIR/.config/" "$HOME/.config/"
+  rsync -a --checksum "$SCRIPT_DIR/.config/" "$HOME/.config/"
 fi
-
 # Copy .local (merge, overwrite same files)
 if [ -d "$SCRIPT_DIR/.local" ]; then
-  rsync -a "$SCRIPT_DIR/.local/"  "$HOME/.local/"
+  rsync -a --checksum "$SCRIPT_DIR/.local/"  "$HOME/.local/"
 fi
-
 # Copy .zshrc (replace file)
 if [ -f "$SCRIPT_DIR/.zshrc" ]; then
-  cp -f "$SCRIPT_DIR/.zshrc" "$HOME/.zshrc"
+  rsync -a --checksum "$SCRIPT_DIR/.zshrc" "$HOME/.zshrc"
+fi
+
+# -----------------------------
+# Hyprlock username
+# -----------------------------
+HYPRLOCK_CONF="$HOME/.config/hypr/hyprlock.conf"
+if [ -f "$HYPRLOCK_CONF" ]; then
+  echo "Hyprlock display name:"
+  echo "1) Keep default (\$USER)"
+  echo "2) Set custom name"
+  read -rp "Choice [1/2]: " HYPRLOCK_CHOICE
+  if [[ "$HYPRLOCK_CHOICE" == "2" ]]; then
+    read -rp "Enter display name: " HYPRLOCK_NAME
+    sed -i "s/text = \$USER/text = $HYPRLOCK_NAME/" "$HYPRLOCK_CONF"
+  fi
 fi
 
 # -----------------------------
@@ -278,7 +324,8 @@ xhost +SI:localuser:root || true
 # -----------------------------
 # Time & NTP
 # -----------------------------
-sudo timedatectl set-timezone Asia/Riyadh
+TIMEZONE=$(curl -s https://ipapi.co/timezone)
+sudo timedatectl set-timezone "$TIMEZONE"
 sudo timedatectl set-local-rtc 1 --adjust-system-clock
 sudo timedatectl set-ntp true
 
@@ -290,12 +337,7 @@ git clone https://github.com/vinceliuice/Colloid-icon-theme.git; cd Colloid-icon
 cd ~/
 rm -rf Colloid-icon-theme/
 
-cd /mnt
-
-sudo mkdir overall_storage others windows
-
-cd ~
-mkdir Videos Documents Pictures Downloads Desktop
+mkdir -p ~/Videos ~/Documents ~/Pictures ~/Downloads ~/Desktop
 echo
 echo "✅ Setup complete."
 
@@ -308,8 +350,3 @@ if [[ "$REBOOT_CONFIRM" =~ ^[Yy]$ ]]; then
 else
   echo "Reboot skipped."
 fi
-
-
-#grim -g "$(slurp)" - | satty --early-exit --action-on-enter save-to-file --right-click-copy --filename - --output-filename ~/Pictures/screenshots/$(date '+%y-%d:%m-%H:%M').png
-
-

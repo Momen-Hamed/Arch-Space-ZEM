@@ -3,7 +3,7 @@
 # mesa lib32-mesa -media-driver vulkan-intel lib32-vulkan-intel
 set -e
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$HOME/n4zl-dotfiles"
 
 # -----------------------------
 # Helpers
@@ -168,32 +168,28 @@ sudo grep -q "^user *= *\"$USERNAME\"" "$GREETD_CONFIG" || \
 # -----------------------------
 # Editor setup
 # -----------------------------
-if is_installed neovim; then
-  echo "==> Neovim already installed, skipping editor setup."
-elif is_installed nano; then
-  echo "==> Nano already installed, skipping editor setup."
+if is_installed neovim || is_installed nano || is_installed vim; then
+  echo "==> Editor already installed, skipping editor setup."
 else
   echo "Select editor to install:"
-  echo "1) NvChad (neovim)"
+  echo "1) neovim"
   echo "2) nano"
-  echo "3) Skip"
-  read -rp "Choice [1/2/3]: " EDITOR_CHOICE
+  echo "3) vim"
+  echo "4) Skip"
+  read -rp "Choice [1/2/3/4]: " EDITOR_CHOICE
 
   if [[ "$EDITOR_CHOICE" == "1" ]]; then
     sudo pacman -S --needed --noconfirm neovim
     NVIM_DIR="$HOME/.config/nvim"
     NVCHAD_MARKER="$NVIM_DIR/lua/core/init.lua"
-
     if [ ! -f "$NVCHAD_MARKER" ]; then
       echo "==> Installing NvChad..."
       git clone https://github.com/NvChad/starter "$NVIM_DIR" || true
     else
       echo "==> NvChad already installed, skipping clone"
     fi
-
-    cp -f "$HOME/n4zl-dotfiles/nvim_plugins/"* "$NVIM_DIR/lua/plugins/" 2>/dev/null || true
+    cp -f "$SCRIPT_DIR/nvim_plugins/*" "$NVIM_DIR/lua/plugins/" 2>/dev/null || true
     nvim
-
     INIT_LUA="$NVIM_DIR/init.lua"
     if ! grep -q "Load matugen colors" "$INIT_LUA" 2>/dev/null; then
       cat >> "$INIT_LUA" <<'EOF'
@@ -207,13 +203,14 @@ vim.schedule(function()
 end)
 EOF
     fi
-
     COLORS_LUA="$NVIM_DIR/colors.lua"
     [ -f "$COLORS_LUA" ] || touch "$COLORS_LUA"
-
   elif [[ "$EDITOR_CHOICE" == "2" ]]; then
     echo "==> Installing nano..."
     sudo pacman -S --needed --noconfirm nano
+  elif [[ "$EDITOR_CHOICE" == "3" ]]; then
+    echo "==> Installing vim..."
+    sudo pacman -S --needed --noconfirm vim
   else
     echo "==> Skipping editor install."
   fi
@@ -413,13 +410,13 @@ fi
 # -----------------------------
 # Apply wallpaper + theme
 # -----------------------------
-awww img "$HOME/n4zl-dotfiles/wallpaper.jpg" \
+awww img "$SCRIPT_DIR/wallpaper.jpg" \
   --transition-type wipe \
   --transition-angle 120 \
   --transition-duration 2 \
   --transition-fps "$MONITOR_FPS"
 
-matugen image "$HOME/n4zl-dotfiles/wallpaper.jpg" \
+matugen image "$SCRIPT_DIR/wallpaper.jpg" \
   --type scheme-tonal-spot \
   --source-color-index 0 \
   -m dark

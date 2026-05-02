@@ -410,13 +410,15 @@ fi
 # -----------------------------
 # Apply wallpaper + theme
 # -----------------------------
-awww img "$SCRIPT_DIR/wallpaper.jpg" \
+WALL_DIR="$HOME/.config/rofi/current_wallpaper"
+
+awww img "$WALL_DIR" \
   --transition-type wipe \
   --transition-angle 120 \
   --transition-duration 2 \
   --transition-fps "$MONITOR_FPS"
 
-matugen image "$SCRIPT_DIR/wallpaper.jpg" \
+matugen image "$WALL_DIR" \
   --type scheme-tonal-spot \
   --source-color-index 0 \
   -m dark

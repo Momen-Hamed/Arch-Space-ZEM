@@ -18,11 +18,20 @@
   "modules-right": [
     "tray",
     "custom/keyboard",
-    "group/system",
+    "group/system1",
+    "group/system2",
     "custom/power_options",
     "custom/notifications"
   ],
-  "group/system": {
+  "group/system1": {
+    "orientation": "horizontal",
+    "modules": [
+      "cpu",
+      "memory",
+    ]
+  },
+
+  "group/system2": {
     "orientation": "horizontal",
     "modules": [
       "custom/battery",
@@ -31,6 +40,19 @@
       "custom/volume"
     ]
   },
+  "cpu": {
+    "interval": 2,
+    "format": "󰍛    {usage}%",
+    "max-length": 10
+  },
+  "memory": {
+    "interval": 5,
+    "format": "󰘚   {}%",
+    "max-length": 10
+  },
+
+
+
   "custom/power_options": {
     "format": "⏻",
     "exec": "~/.config/waybar/scripts/power_info.sh",
@@ -116,7 +138,6 @@
     "on-click": "nmgui",
     "on-click-right": "~/.config/waybar/scripts/network-toggle-display.sh"
   },
-  "tooltip-format-disconnected": "Disconnected",
   "custom/notifications": {
     "exec": "swaync-client -swb",
     "return-type": "json",
@@ -158,9 +179,10 @@
     "tooltip": true
   },
   "custom/launcher": {
-    "format": "󰀻",
+    "format": "󰣇",
     "on-click": "~/.config/rofi/scripts/launch_options.sh launcher",
     "tooltip": true,
     "tooltip-format": "Launcher"
   }
+}
 }

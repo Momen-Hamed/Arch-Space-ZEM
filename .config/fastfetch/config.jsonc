@@ -45,7 +45,7 @@
     "break",
     {
       "type": "os",
-      "key": "󰣇 OS" ,
+      "key": "󰣇 OS",
       "keyColor": "yellow",
     },
     {
@@ -79,6 +79,12 @@
       "type": "uptime",
       "key": "  Uptime ",
       "keyColor": "magenta",
+    },
+    {
+      "type": "custom",
+      "key": "  Creators ",
+      "keyColor": "magenta",
+      "format": "Ziad Lawatey and Cairo",
     },
     "break",
     {

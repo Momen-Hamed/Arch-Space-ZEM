@@ -124,13 +124,19 @@ window#waybar.empty #window {
 #custom-power {
   margin-right: 6px;
 }
-#system {
-  padding: 1px 16px 0 19px;
+#system1 {
+  padding: 1px 10px 0 10px;
   background-color: @surface_container;
   font-size: 16px;
   font-weight: 700;
 }
 
+#system2 {
+  padding: 1px 13px 0 13px;
+  background-color: @surface_container;
+  font-size: 16px;
+  font-weight: 700;
+}
 /* Individual modules */
 
 #bluetooth {
@@ -207,4 +213,12 @@ tooltip {
 
 tooltip label {
   padding: 0 3px;
+}
+
+
+#cpu, #memory {
+    background: transparent; /* إزالة الخلفية */
+    border: none;           /* إزالة أي حدود */
+    box-shadow: none;       /* إزالة أي هالة أو ظل */
+    padding: 0 5px;         /* مساحة بسيطة للتنفس */
 }

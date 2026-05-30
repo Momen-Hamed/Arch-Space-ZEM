@@ -267,7 +267,8 @@ yay_install \
   darkly-qt6-git \
   darkly-qt5-git \
   swayosd-git \
-  snappy-switcher
+  snappy-switcher \
+  hyprmod
 
 # -----------------------------
 # Optional Software Selection
